@@ -3,8 +3,6 @@ import tempfile
 from typing import Any
 
 import requests
-from pydub import AudioSegment
-from pydub.playback import play
 
 session = requests.Session()
 
@@ -47,6 +45,8 @@ class Word:
             pronunciation = session.get(self.json['symbols'][0][key_name], timeout=self.timeout).content
             setattr(self, pronunciation_name, pronunciation)
             if speak:
+                from pydub import AudioSegment
+                from pydub.playback import play
                 with tempfile.NamedTemporaryFile('wb', suffix='.mp3') as tf:
                     tf.write(pronunciation)
                     tf.flush()
