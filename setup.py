@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name='iciba_word_looking_up_SDK_Stephano',
+    name='iciba_word_looking_up_SDK',
     version='0.0.1',
     author='Stephano George',
     author_email='huohuo5230@gmail.com',
