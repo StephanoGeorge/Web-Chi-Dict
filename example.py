@@ -1,4 +1,4 @@
-from iciba_api import Word
+from iciba_word import Word
 
 word = Word('hot')
 print(word['word_name'])  # hot

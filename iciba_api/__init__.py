@@ -1,1 +1,0 @@
-name = 'iciba_word'
