@@ -2,6 +2,12 @@
 
 # Getting Started
 
+## Installing
+
+```shell
+pip install --upgrade git+https://github.com/StephanoGeorge/iciba-API.git
+```
+
 See `example.py` and Responses.
 
 # Responses
