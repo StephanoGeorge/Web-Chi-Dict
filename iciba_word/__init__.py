@@ -1,5 +1,5 @@
-import os
 import tempfile
+from subprocess import Popen
 from typing import Any
 
 import requests
@@ -45,10 +45,8 @@ class Word:
             pronunciation = session.get(self.json['symbols'][0][key_name], timeout=self.timeout).content
             setattr(self, pronunciation_name, pronunciation)
             if speak:
-                from pydub import AudioSegment
-                from pydub.playback import play
-                with tempfile.NamedTemporaryFile('wb', suffix='.mp3') as tf:
-                    tf.write(pronunciation)
-                    tf.flush()
-                    play(AudioSegment.from_mp3(os.path.join(tempfile.gettempdir(), tf.name)))
+                with tempfile.NamedTemporaryFile('wb', suffix='.mp3') as f:
+                    f.write(pronunciation)
+                    f.flush()
+                    Popen(f'ffplay -nodisp -autoexit {f.name}', shell=True)
             return pronunciation
