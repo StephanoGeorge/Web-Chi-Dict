@@ -42,7 +42,10 @@ class Word:
                 key_name = 'symbol_mp3'
             if hasattr(self, pronunciation_name):
                 return getattr(self, pronunciation_name)
-            pronunciation = session.get(self.json['symbols'][0][key_name], timeout=self.timeout).content
+            pronunciation_url = self.json['symbols'][0][key_name]
+            if not pronunciation_url:
+                pronunciation_url = self.json['symbols'][0]['ph_tts_mp3']
+            pronunciation = session.get(pronunciation_url, timeout=self.timeout).content
             setattr(self, pronunciation_name, pronunciation)
             if speak:
                 with tempfile.NamedTemporaryFile('wb', suffix='.mp3') as f:
