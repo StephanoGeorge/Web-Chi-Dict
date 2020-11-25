@@ -51,5 +51,6 @@ class Word:
                 with tempfile.NamedTemporaryFile('wb', suffix='.mp3') as f:
                     f.write(pronunciation)
                     f.flush()
+                    # Wait for finish. Execute through shell, or can not get the file
                     run(f'ffplay -nodisp -autoexit {f.name}', shell=True, stdout=DEVNULL, stderr=DEVNULL)
             return pronunciation
