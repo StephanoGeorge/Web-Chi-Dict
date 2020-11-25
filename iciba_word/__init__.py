@@ -1,5 +1,5 @@
 import tempfile
-from subprocess import Popen
+from subprocess import Popen, DEVNULL
 from typing import Any
 
 import requests
@@ -48,5 +48,5 @@ class Word:
                 with tempfile.NamedTemporaryFile('wb', suffix='.mp3') as f:
                     f.write(pronunciation)
                     f.flush()
-                    Popen(f'ffplay -nodisp -autoexit {f.name}', shell=True)
+                    Popen(f'ffplay -nodisp -autoexit {f.name}', shell=True, stdout=DEVNULL, stderr=DEVNULL)
             return pronunciation
