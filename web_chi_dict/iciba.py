@@ -42,14 +42,13 @@ class WordICiBa(Word):
             pronunciation_name = f'pronunciation_{type_}'
             phonetic_key = f'ph_{type_}'
             url_key = f'ph_{type_}_mp3'
-        if hasattr(self, pronunciation_name):
-            return getattr(self, pronunciation_name)
-        pronunciation_url = self['symbols'][0][url_key]
-        if not pronunciation_url:
-            pronunciation_url = self['symbols'][0]['ph_tts_mp3']
-        pronunciation = session.get(pronunciation_url, timeout=self.timeout).content
-        phonetic = self['symbols'][0][phonetic_key] if phonetic_key in self['symbols'][0] else ''
-        setattr(self, pronunciation_name, (phonetic, pronunciation))
+        if not hasattr(self, pronunciation_name):
+            pronunciation_url = self['symbols'][0][url_key]
+            if not pronunciation_url:
+                pronunciation_url = self['symbols'][0]['ph_tts_mp3']
+            pronunciation = session.get(pronunciation_url, timeout=self.timeout).content
+            phonetic = self['symbols'][0][phonetic_key] if phonetic_key in self['symbols'][0] else ''
+            setattr(self, pronunciation_name, (phonetic, pronunciation))
         if speak:
-            self.speak(pronunciation, threaded=threaded)
+            self.speak(getattr(self, pronunciation_name)[1], threaded=threaded)
         return getattr(self, pronunciation_name)

@@ -42,13 +42,12 @@ class WordYouDao(Word):
             return
         type_ = self.pronunciation_type[type_]
         pronunciation_name = f'pronunciation_{type_}'
-        if hasattr(self, pronunciation_name):
-            return getattr(self, pronunciation_name)
-        pronunciation_url = self['basic'][f'{type_}speech']
-        if not pronunciation_url:
-            pronunciation_url = self['basic']['speech']
-        pronunciation = session.get(pronunciation_url, timeout=self.timeout).content
-        setattr(self, pronunciation_name, (self['basic'][f'{type_}phonetic'], pronunciation))
+        if not hasattr(self, pronunciation_name):
+            pronunciation_url = self['basic'][f'{type_}speech']
+            if not pronunciation_url:
+                pronunciation_url = self['basic']['speech']
+            pronunciation = session.get(pronunciation_url, timeout=self.timeout).content
+            setattr(self, pronunciation_name, (self['basic'][f'{type_}phonetic'], pronunciation))
         if speak:
-            self.speak(pronunciation, threaded=threaded)
+            self.speak(getattr(self, pronunciation_name)[1], threaded=threaded)
         return getattr(self, pronunciation_name)
