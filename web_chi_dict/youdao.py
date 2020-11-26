@@ -29,10 +29,11 @@ class WordYouDao(Word):
     def __getitem__(self, item):
         return self.json[item]
 
-    def pronounce(self, type_='us', speak=False) -> (str, bytes):
+    def pronounce(self, type_='us', speak=False, threaded=True) -> (str, bytes):
         """
         :param type_: 'us' for USA, 'uk' for UK, 'tts' for Text-to-Speak
         :param speak: Whether to speak
+        :param threaded: Whether speak through background thread
         :returns String of the phonetic, Bytes of the pronunciation
         """
         if not self.has_word:
@@ -49,5 +50,5 @@ class WordYouDao(Word):
         pronunciation = session.get(pronunciation_url, timeout=self.timeout).content
         setattr(self, pronunciation_name, (self['basic'][f'{type_}phonetic'], pronunciation))
         if speak:
-            self.speak(pronunciation)
+            self.speak(pronunciation, threaded=threaded)
         return getattr(self, pronunciation_name)
