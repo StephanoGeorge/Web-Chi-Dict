@@ -1,7 +1,12 @@
-from iciba_word import Word
+from web_dict_chi import WordICiBa, WordYouDao
 
-word = Word('hot')
-print(word['word_name'])  # hot
-print(word['exchange']['word_third'])  # hots
-pronounce = word.pronounce()  # get bytes of the pronunciation
-word.pronounce('en', True)  # speak
+word = WordICiBa('hot')
+print(word.word)  # hot
+# print(word.json)  # Full json response
+print(word['exchange']['word_third'][0])  # Gets from json
+phonetic, pronunciation = word.pronounce()
+word.pronounce(speak=True)  # Speak, 'us' for USA, 'uk' for UK, 'tts' for Text-to-Speak
+
+word = WordYouDao('hot')
+print(word['basic']['explains'])  # Gets from json
+word.pronounce(type_='uk', speak=True)  # Speak, 'us' for USA, 'uk' for UK, 'tts' for Text-to-Speak
