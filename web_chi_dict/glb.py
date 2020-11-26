@@ -16,7 +16,7 @@ class Word:
         self.timeout = timeout
 
     @classmethod
-    def speak(cls, pronunciation, suffix='.mp3'):
+    def speak(cls, pronunciation, suffix='.mp3', threaded=True):
         def speak_():
             with tempfile.NamedTemporaryFile('wb', suffix=suffix) as f:
                 f.write(pronunciation)
@@ -24,4 +24,7 @@ class Word:
                 # Wait for finish, or the file will be deleted. Execute through shell, or can not get the file
                 sp.run(['ffplay', '-nodisp', '-autoexit', f'{f.name}'], stdout=sp.DEVNULL, stderr=sp.DEVNULL)
 
-        threading.Thread(target=speak_).start()
+        if threaded:
+            threading.Thread(target=speak_).start()
+        else:
+            speak_()
