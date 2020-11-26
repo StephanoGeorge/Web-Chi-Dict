@@ -1,18 +1,20 @@
-# iciba Dictionary API (金山词霸词典 API)
+# Web Chinese Dictionary SDK (网络中文词典 SDK)
 
 # Getting Started
 
 ## Installing
 
 ```shell
-pip install --upgrade git+https://github.com/StephanoGeorge/iciba-API.git
+pip install --upgrade git+https://github.com/StephanoGeorge/Web-Chi-Dict-SDK.git
 ```
 
 See `example.py` and Responses.
 
 # Responses
 
-## English => Chinese
+## iciba.com
+
+### English => Chinese
 
 Word: hot
 
@@ -84,7 +86,7 @@ Word: hot
 }
 ```
 
-## Chinese => English
+### Chinese => English
 
 Word: 热
 
@@ -176,7 +178,7 @@ Word: 热
 }
 ```
 
-## No such word
+### No Such Word
 
 Word: ooooo
 
@@ -192,3 +194,140 @@ Word: ooooo
     ]
 }
 ```
+
+## youdao.com
+
+### English => Chinese
+
+Word: hot
+
+```json
+{
+    "translation": [
+        "热"
+    ],
+    "basic": {
+        "us-phonetic": "hɑːt",
+        "uk-speech": "http://fanyi.youdao.com/openapi.do?type=data&voice=true&version=1.2&key=1048394636&keyfrom=wangtuizhijia&q=hot&vt=1",
+        "speech": "http://fanyi.youdao.com/openapi.do?type=data&voice=true&version=1.2&key=1048394636&keyfrom=wangtuizhijia&q=hot&vt=1",
+        "phonetic": "hɒt",
+        "uk-phonetic": "hɒt",
+        "us-speech": "http://fanyi.youdao.com/openapi.do?type=data&voice=true&version=1.2&key=1048394636&keyfrom=wangtuizhijia&q=hot&vt=2",
+        "explains": [
+            "adj. 热的；辣的；热情的；激动的；紧迫的",
+            "adv. 热；紧迫地",
+            "vi. 变热",
+            "vt. 增加；给......加温",
+            "n. （Hot）（塞）霍特（人名）；（法）奥特（人名）"
+        ]
+    },
+    "query": "hot",
+    "errorCode": 0,
+    "web": [
+        {
+            "value": [
+                "热的",
+                "惹火",
+                "热"
+            ],
+            "key": "hot"
+        },
+        {
+            "value": [
+                "热狗",
+                "红肠面包",
+                "热狗"
+            ],
+            "key": "hot dog"
+        },
+        {
+            "value": [
+                "温泉城",
+                "温泉",
+                "温泉市"
+            ],
+            "key": "Hot Springs"
+        }
+    ]
+}
+```
+
+### Chinese => English
+
+Word: 热
+
+```json
+{
+    "translation": [
+        "hot"
+    ],
+    "basic": {
+        "explains": [
+            "hot（用于水龙头上）"
+        ]
+    },
+    "query": "热",
+    "errorCode": 0,
+    "web": [
+        {
+            "value": [
+                "hot",
+                "Fever",
+                "dry heat"
+            ],
+            "key": "热"
+        },
+        {
+            "value": [
+                "Thermionic Emission",
+                "heat emission",
+                "thermal emission"
+            ],
+            "key": "热发射"
+        },
+        {
+            "value": [
+                "Gex"
+            ],
+            "key": "热克斯"
+        }
+    ]
+}
+```
+
+### Only Web Translation
+
+Word: qqqqqqqqq
+
+```json
+{
+    "translation": [
+        "qqqqqqqqq"
+    ],
+    "query": "QQQQQQQQQ",
+    "errorCode": 0,
+    "web": [
+        {
+            "value": [
+                "很喜欢"
+            ],
+            "key": "QQQQQQQQQ"
+        }
+    ]
+}
+```
+
+### No Such Word
+
+Word: qazwsxedcfgjkgkja
+
+```json
+{
+    "translation": [
+        "qazwsxedcfgjkgkja"
+    ],
+    "query": "qazwsxedcfgjkgkja",
+    "errorCode": 0
+}
+```
+

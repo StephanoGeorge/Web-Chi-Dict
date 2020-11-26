@@ -1,4 +1,4 @@
-from web_dict_chi import WordICiBa, WordYouDao
+from web_chi_dict import WordICiBa, WordYouDao
 
 word = WordICiBa('hot')
 print(word.word)  # hot
