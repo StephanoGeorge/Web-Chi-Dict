@@ -37,9 +37,9 @@ class WordYouDao(Word):
         :returns String of the phonetic, Bytes of the pronunciation
         """
         if not self.has_word:
-            return
+            return '', bytes()
         if 'basic' not in self.json or 'speech' not in self['basic']:
-            return
+            return '', bytes()
         type_ = self.pronunciation_type[type_]
         pronunciation_name = f'pronunciation_{type_}'
         if not hasattr(self, pronunciation_name):

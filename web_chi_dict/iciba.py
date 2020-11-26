@@ -32,7 +32,7 @@ class WordICiBa(Word):
         :returns String of the phonetic, Bytes of the pronunciation
         """
         if not self.has_word:
-            return
+            return '', bytes()
         type_ = self.pronunciation_type[type_]
         if 'symbol_mp3' in self['symbols'][0]:
             pronunciation_name = 'pronunciation_cn'
