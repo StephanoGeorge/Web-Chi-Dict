@@ -32,14 +32,21 @@ class Word:
                     set_(a, t)
 
     def get_pronunciation(self, types=()) -> str:
-        return self._get_alternative_type(types, Pronunciations)[1]
+        pronunciation = self._get_alternative_type(types, Pronunciations)
+        if pronunciation:
+            return pronunciation[1]
+        else:
+            return ''
 
     def speak(self, types=(), threaded=True):
         """
         :param types: See example.py
         :param threaded: Whether speak through background thread
         """
-        type_, pronunciation_url = self._get_alternative_type(types, Pronunciation_URLs)
+        pronunciation_url = self._get_alternative_type(types, Pronunciation_URLs)
+        if not pronunciation_url:
+            return
+        type_, pronunciation_url = pronunciation_url
         if not pronunciation_url:
             return ''
         pronunciation_byte = getattr(self, Pronunciation_bytes)
