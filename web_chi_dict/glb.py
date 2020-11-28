@@ -67,6 +67,8 @@ class Word:
         return pronunciation_byte[type_]
 
     def _get_alternative_type(self, types, attr_name):
+        if not hasattr(self, attr_name):
+            return
         attr = getattr(self, attr_name)
         if not types:
             types = self.pronunciation_types[attr_name].keys()
