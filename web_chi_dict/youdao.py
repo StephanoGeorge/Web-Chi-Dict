@@ -5,6 +5,9 @@ from .glb import *
 
 class WordYouDao(Word):
     json: Any
+    pronunciations: dict
+    pronunciation_URLs: dict
+    pronunciation_bytes: dict
     pronunciation_types = {
         Pronunciations: {
             US: 'us-phonetic',

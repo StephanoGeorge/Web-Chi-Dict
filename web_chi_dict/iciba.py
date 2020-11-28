@@ -5,6 +5,9 @@ from .glb import *
 
 class WordICiBa(Word):
     json: Any
+    pronunciations: dict
+    pronunciation_URLs: dict
+    pronunciation_bytes: dict
     pronunciation_types = {
         Pronunciations: {
             US: 'ph_am',
