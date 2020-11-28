@@ -295,7 +295,7 @@ Word: 热
 }
 ```
 
-### Only Web Translation
+### `translation` & `web`
 
 Word: qqqqqqqqq
 
@@ -317,17 +317,16 @@ Word: qqqqqqqqq
 }
 ```
 
-### No Such Word
+### `translation`
 
-Word: qazwsxedcfgjkgkja
+Word: Whether speak through background thread
 
 ```json
 {
     "translation": [
-        "qazwsxedcfgjkgkja"
+        "通过后台线程是否说话"
     ],
-    "query": "qazwsxedcfgjkgkja",
+    "query": "Whether speak through background thread",
     "errorCode": 0
 }
 ```
-

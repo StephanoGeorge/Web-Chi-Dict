@@ -32,12 +32,9 @@ class WordYouDao(Word):
         }, timeout=self.timeout).json()
         if self['errorCode'] != 0:
             return
-        self.has_word = 'web' in self.json
-        if self.has_word:
-            if 'basic' not in self.json:
-                return
-            if 'speech' in self['basic']:
-                self._set_attrs(self['basic'])
+        self.has_word = True
+        if 'basic' in self.json and 'speech' in self['basic']:
+            self._set_attrs(self['basic'])
 
     def __getitem__(self, item):
         return self.json[item]
