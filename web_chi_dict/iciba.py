@@ -1,14 +1,22 @@
 from typing import Any
 
-from .glb import session, Word
+from .glb import *
 
 
 class WordICiBa(Word):
     json: Any
-    pronunciation_type = {
-        'us': 'am',
-        'uk': 'en',
-        'tts': 'tts',
+    pronunciation_types = {
+        Pronunciations: {
+            US: 'ph_am',
+            UK: 'ph_en',
+            TTS: 'ph_other',
+        },
+        Pronunciation_URLs: {
+            US: 'ph_am_mp3',
+            UK: 'ph_en_mp3',
+            TTS: 'ph_tts_mp3',
+        },
+        Pronunciation_bytes: {},
     }
 
     def __init__(self, word: str, timeout=10):
@@ -20,35 +28,8 @@ class WordICiBa(Word):
             'w': word,
         }, timeout=self.timeout).json()
         self.has_word = 'word_name' in self.json
+        if self.has_word and 'symbol_mp3' not in self['symbols'][0]:
+            self._set_attrs(self['symbols'][0])
 
     def __getitem__(self, item):
         return self.json[item]
-
-    def pronounce(self, type_='us', speak=False, threaded=True) -> (str, bytes):
-        """
-        :param type_: 'us' for USA, 'uk' for UK, 'tts' for Text-to-Speak
-        :param speak: Whether to speak
-        :param threaded: Whether speak through background thread
-        :returns String of the phonetic, Bytes of the pronunciation
-        """
-        if not self.has_word:
-            return '', bytes()
-        type_ = self.pronunciation_type[type_]
-        if 'symbol_mp3' in self['symbols'][0]:
-            pronunciation_name = 'pronunciation_cn'
-            phonetic_key = 'word_symbol'
-            url_key = 'symbol_mp3'
-        else:
-            pronunciation_name = f'pronunciation_{type_}'
-            phonetic_key = f'ph_{type_}'
-            url_key = f'ph_{type_}_mp3'
-        if not hasattr(self, pronunciation_name):
-            pronunciation_url = self['symbols'][0][url_key]
-            if not pronunciation_url:
-                pronunciation_url = self['symbols'][0]['ph_tts_mp3']
-            pronunciation = session.get(pronunciation_url, timeout=self.timeout).content
-            phonetic = self['symbols'][0][phonetic_key] if phonetic_key in self['symbols'][0] else ''
-            setattr(self, pronunciation_name, (phonetic, pronunciation))
-        if speak:
-            self.speak(getattr(self, pronunciation_name)[1], threaded=threaded)
-        return getattr(self, pronunciation_name)
