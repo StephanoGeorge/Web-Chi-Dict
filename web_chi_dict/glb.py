@@ -27,9 +27,8 @@ class Word:
 
         for a, d in self.pronunciation_types.items():
             setattr(self, a, {})
-            if a:
-                for t in d.keys():
-                    set_(a, t)
+            for t in d.keys():
+                set_(a, t)
 
     def get_pronunciation(self, types=()) -> str:
         pronunciation = self._get_alternative_type(types, Pronunciations)
