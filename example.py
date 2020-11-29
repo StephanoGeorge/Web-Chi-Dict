@@ -4,7 +4,7 @@ word = WordICiBa('hot')
 print(word.word)  # hot
 # print(word.json)  # Full json response
 print(word['exchange']['word_third'][0])  # Gets from json
-print(word.pronunciation_URLs)
+print(word.pronunciation_URLs)  # Available attrs described in class definition
 word.speak(types=('us', 'uk'))  # Speak, types: tuple of priority: 'us' for USA, 'uk' for UK, 'tts' for Text-to-Speak
 
 word = WordYouDao('hot')
