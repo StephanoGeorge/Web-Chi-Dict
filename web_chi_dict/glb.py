@@ -1,3 +1,5 @@
+import os
+import platform
 import subprocess as sp
 import tempfile
 import threading
@@ -8,6 +10,7 @@ session = requests.Session()
 
 Pronunciations, Pronunciation_URLs, Pronunciation_bytes = 'pronunciations', 'pronunciation_URLs', 'pronunciation_bytes'
 US, UK, TTS = 'us', 'uk', 'tts'
+is_windows = platform.system() == 'Windows'
 
 
 class Word:
@@ -53,11 +56,12 @@ class Word:
             pronunciation_byte[type_] = session.get(pronunciation_url, timeout=self.timeout).content
 
         def play():
-            with tempfile.NamedTemporaryFile('wb', suffix='.mp3') as f:
-                f.write(pronunciation_byte[type_])
-                f.flush()
-                # Wait for finish, or the file will be deleted. Execute through shell, or can not get the file
-                sp.run(['ffplay', '-nodisp', '-autoexit', f'{f.name}'], stdout=sp.DEVNULL, stderr=sp.DEVNULL)
+            # For Windows, close before read
+            f = tempfile.NamedTemporaryFile('wb', suffix='.mp3', delete=False)
+            f.write(pronunciation_byte[type_])
+            f.close()
+            sp.run(['ffplay', '-nodisp', '-autoexit', f'{f.name}'], stdout=sp.DEVNULL, stderr=sp.DEVNULL)
+            os.remove(f.name)
 
         if threaded:
             threading.Thread(target=play).start()
