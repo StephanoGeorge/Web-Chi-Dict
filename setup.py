@@ -1,12 +1,12 @@
 import setuptools
 
 setuptools.setup(
-    name='iciba-word-looking-up-SDK-Stephano',
+    name='Web-Chi-Dict-SDK-Stephano',
     version='0.0.1',
     author='Stephano George',
     author_email='huohuo5230@gmail.com',
-    description='iciba.com word looking up SDK',
-    url='https://github.com/StephanoGeorge/iciba-API',
+    description='Web Chi Dict SDK',
+    url='https://github.com/StephanoGeorge/Web-Chi-Dict-SDK',
     packages=setuptools.find_packages(),
     classifiers=[
         'Programming Language :: Python :: 3',
