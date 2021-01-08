@@ -1,11 +1,11 @@
-# Web Chinese Dictionary SDK (网络中文词典 SDK)
+# Web Chinese Dictionary (网络中文词典)
 
 # Getting Started
 
 ## Installing
 
 ```shell
-pip install --upgrade git+https://github.com/StephanoGeorge/Web-Chi-Dict-SDK.git
+pip install --upgrade git+https://github.com/StephanoGeorge/Web-Chi-Dict.git
 ```
 
 See `example.py` and Responses.
